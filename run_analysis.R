@@ -1,4 +1,3 @@
-setwd("/Users/telfreth/Desktop/Classes/Week4")
 library(plyr)
 library(knitr)
 # Get the data and put it in my working directory
