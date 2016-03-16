@@ -1,98 +1,59 @@
 Code Book
-This code book summarizes the resulting data fields in tidy.txt.
+This code book depicts how the R script works. 
 
-Identifiers
+The code first sets the working directory and imports wht plyr and knitr libraries. 
 
-subject - The ID of the test subject
-activity - The type of activity performed when the corresponding measurements were taken
+The script then downloads the data from the web and creates a directory for the data to live. 
 
-Measurements
+Since the data is in a zip file it opens the zip file using the unzip function. 
 
-tBodyAccMeanX
-tBodyAccMeanY
-tBodyAccMeanZ
-tBodyAccStdX
-tBodyAccStdY
-tBodyAccStdZ
-tGravityAccMeanX
-tGravityAccMeanY
-tGravityAccMeanZ
-tGravityAccStdX
-tGravityAccStdY
-tGravityAccStdZ
-tBodyAccJerkMeanX
-tBodyAccJerkMeanY
-tBodyAccJerkMeanZ
-tBodyAccJerkStdX
-tBodyAccJerkStdY
-tBodyAccJerkStdZ
-tBodyGyroMeanX
-tBodyGyroMeanY
-tBodyGyroMeanZ
-tBodyGyroStdX
-tBodyGyroStdY
-tBodyGyroStdZ
-tBodyGyroJerkMeanX
-tBodyGyroJerkMeanY
-tBodyGyroJerkMeanZ
-tBodyGyroJerkStdX
-tBodyGyroJerkStdY
-tBodyGyroJerkStdZ
-tBodyAccMagMean
-tBodyAccMagStd
-tGravityAccMagMean
-tGravityAccMagStd
-tBodyAccJerkMagMean
-tBodyAccJerkMagStd
-tBodyGyroMagMean
-tBodyGyroMagStd
-tBodyGyroJerkMagMean
-tBodyGyroJerkMagStd
-fBodyAccMeanX
-fBodyAccMeanY
-fBodyAccMeanZ
-fBodyAccStdX
-fBodyAccStdY
-fBodyAccStdZ
-fBodyAccMeanFreqX
-fBodyAccMeanFreqY
-fBodyAccMeanFreqZ
-fBodyAccJerkMeanX
-fBodyAccJerkMeanY
-fBodyAccJerkMeanZ
-fBodyAccJerkStdX
-fBodyAccJerkStdY
-fBodyAccJerkStdZ
-fBodyAccJerkMeanFreqX
-fBodyAccJerkMeanFreqY
-fBodyAccJerkMeanFreqZ
-fBodyGyroMeanX
-fBodyGyroMeanY
-fBodyGyroMeanZ
-fBodyGyroStdX
-fBodyGyroStdY
-fBodyGyroStdZ
-fBodyGyroMeanFreqX
-fBodyGyroMeanFreqY
-fBodyGyroMeanFreqZ
-fBodyAccMagMean
-fBodyAccMagStd
-fBodyAccMagMeanFreq
-fBodyBodyAccJerkMagMean
-fBodyBodyAccJerkMagStd
-fBodyBodyAccJerkMagMeanFreq
-fBodyBodyGyroMagMean
-fBodyBodyGyroMagStd
-fBodyBodyGyroMagMeanFreq
-fBodyBodyGyroJerkMagMean
-fBodyBodyGyroJerkMagStd
-fBodyBodyGyroJerkMagMeanFreq
+The script then reads in all of the data into the below variables. 
 
-Activity Labels
+dataActivityTest
+dataActivityTrain
+dataSubjectTest
+dataSubjectTrain
+dataFeaturesTest
+dataFeaturesTrain
 
-WALKING (value 1): subject was walking during the test
-WALKING_UPSTAIRS (value 2): subject was walking up a staircase during the test
-WALKING_DOWNSTAIRS (value 3): subject was walking down a staircase during the test
-SITTING (value 4): subject was sitting during the test
-STANDING (value 5): subject was standing during the test
-LAYING (value 6): subject was laying down during the test
+The first step to clean the data is to replace the numerics in dataActivityTest and dataActivity Train. They are replaced according to the below key and stored in the new data frames finalDataActivityTest and finalDataActivityTrain. 
+
+1 WALKING
+2 WALKING_UPSTAIRS
+3 WALKING_DOWNSTAIRS
+4 SITTING
+5 STANDING
+6 LAYING
+
+The following mergers are then made. 
+
+finalDataActivityTest and finalDataActivityTrain are merged using rbind and stores in the data frame dataActivity.
+dataSubjectTest and dataSubjectTrain are merged using rbind and stored in the data frame dataSubject.
+dataFeaturesTest and dataFeaturesTrain are merged using rbind and stored in the data frame dataFeatures. 
+
+The columns of these three data frames are then named accordingly. 
+
+The dataActivity column is named "activity"
+The dataSubject column is named "subject"
+The dataFeatures data frame has several columns and pulls its names from the features.txt file. 
+
+All three data frames are then combines to form one big data frame which will be called Data. 
+
+The columns for the Mean, Standard Deviation and Activity are extracted from the data frame.
+
+The Activity column names are then cleaned up a bit. 
+
+Anything beginning with t becomes Time
+Anything beginnging with f becomes frequency. 
+Acc becomes Accelerometer
+Gyro becomes Gyroscope
+Mag becomes Magnitiude
+BodyBody becomes Body. 
+
+Finally a second, independent tidy data set is created with the average of each variable for each activity and each subject. 
+
+
+
+
+
+
